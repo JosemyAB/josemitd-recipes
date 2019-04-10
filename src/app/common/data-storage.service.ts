@@ -16,8 +16,8 @@ export class DataStorageService {
   storeRecipes() {
     const token = this.authService.getToken();
     return this.http.put('https://ng-recipe-book-3df37.firebaseio.com/recipes.json',
-      this.recipeService.getRecipes(),
-      {params: new HttpParams().set('auth', token)});
+      this.recipeService.getRecipes());
+      //{params: new HttpParams().set('auth', token)});
 
     const req = new HttpRequest('PUT', 'https://ng-recipe-book-3df37.firebaseio.com/recipes.json', this.recipeService.getRecipes(),
       {
@@ -29,8 +29,8 @@ export class DataStorageService {
 
   getRecipes() {
     const token = this.authService.getToken();
-    this.http.get<Recipe[]>('https://ng-recipe-book-3df37.firebaseio.com/recipes.json',
-      {params: new HttpParams().set('auth', token)})
+    this.http.get<Recipe[]>('https://ng-recipe-book-3df37.firebaseio.com/recipes.json')
+    //{params: new HttpParams().set('auth', token)}
       .pipe(map(
         (recipes: Recipe[]) => {
           for (let recipe of recipes) {
