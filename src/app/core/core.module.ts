@@ -10,6 +10,7 @@ import {AuthService} from '../auth/auth.service';
 import {AuthGuardService} from '../auth/auth-guard.service';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from '../common/auth.interceptor';
+import {LogginInterceptor} from '../auth/loggin.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,9 @@ import {AuthInterceptor} from '../common/auth.interceptor';
     DataStorageService,
     AuthService,
     AuthGuardService,
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }]
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {provide: HTTP_INTERCEPTORS, useClass: LogginInterceptor, multi: true }
+    ]
 })
 export class CoreModule {
 
