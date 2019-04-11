@@ -6,8 +6,8 @@
           <button
             type="submit"
             class="btn btn-success"
-          [disabled]="!recipeForm.valid">Save</button>
-          <button (click)="onCancel()" type="submit" class="btn btn-danger">Cancel</button>
+            [disabled]="!recipeForm.valid">Save</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
         </div>
       </div>
       <div class="row">
@@ -17,8 +17,8 @@
             <input
               type="text"
               id="name"
-              class="form-control"
-              formControlName="name">
+              formControlName="name"
+              class="form-control">
           </div>
         </div>
       </div>
@@ -29,27 +29,27 @@
             <input
               type="text"
               id="imagePath"
-              class="form-control"
               formControlName="imagePath"
+              class="form-control"
               #imagePath>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <img [src]="imagePath.value" alt="" class="img-responsive">
+          <img [src]="imagePath.value" class="img-responsive">
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
             <label for="description">Description</label>
-            <input
-              type="textarea"
+            <textarea
+              type="text"
               id="description"
               class="form-control"
-              rows="6"
-              formControlName="description">
+              formControlName="description"
+              rows="6"></textarea>
           </div>
         </div>
       </div>
@@ -58,7 +58,8 @@
           <div
             class="row"
             *ngFor="let ingredientCtrl of getControls(); let i = index"
-            [formGroupName]="i">
+            [formGroupName]="i"
+            style="margin-top: 10px;">
             <div class="col-xs-8">
               <input
                 type="text"
@@ -75,7 +76,7 @@
               <button
                 type="button"
                 class="btn btn-danger"
-              (click)="onDeleteIngredient(i)">X</button>
+                (click)="onDeleteIngredient(i)">X</button>
             </div>
           </div>
           <hr>
@@ -89,7 +90,6 @@
           </div>
         </div>
       </div>
-
     </form>
   </div>
 </div>

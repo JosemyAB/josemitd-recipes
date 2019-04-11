@@ -1,23 +1,28 @@
-import {Recipe} from './recipe-list/recipe.model';
-import {Injectable} from '@angular/core';
-import {Ingredient} from '../common/ingredient.model';
-import {Subject} from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 
-@Injectable()
+import { Recipe } from './recipe.model';
+import { Ingredient } from '../shared/ingredient.model';
+
 export class RecipeService {
-
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [new Recipe('Test Recipe', 'Test Description',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4KaZ5MO1e-wpUwC0AjULvPxFVPYvSPoMsV9gF2H7SLjKt8NBZ',[
-      new Ingredient('Bread', 1),
-      new Ingredient('Fish', 6)
-    ]),
-    new Recipe('Test Recipe B', 'Test Description B',
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4KaZ5MO1e-wpUwC0AjULvPxFVPYvSPoMsV9gF2H7SLjKt8NBZ',[
-        new Ingredient('Meat', 2),
-        new Ingredient('Tomatoes', 5)
-      ])];
+  private recipes: Recipe[] = [
+    new Recipe(
+      'Tasty Schnitzel',
+      'A super-tasty Schnitzel - just awesome!',
+      'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
+      [
+        new Ingredient('Meat', 1),
+        new Ingredient('French Fries', 20)
+      ]),
+    new Recipe('Big Fat Burger',
+      'What else you need to say?',
+      'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
+      [
+        new Ingredient('Buns', 2),
+        new Ingredient('Meat', 1)
+      ])
+  ];
 
   constructor() {}
 
@@ -27,13 +32,11 @@ export class RecipeService {
   }
 
   getRecipes() {
-    // Returns a copy
     return this.recipes.slice();
   }
 
   getRecipe(index: number) {
-    console.log('service:' + index);
-    return this.recipes.slice()[index];
+    return this.recipes[index];
   }
 
   addRecipe(recipe: Recipe) {
@@ -41,8 +44,8 @@ export class RecipeService {
     this.recipesChanged.next(this.recipes.slice());
   }
 
-  updateRecipe(index: number, recipe: Recipe) {
-    this.recipes[index] = recipe;
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this.recipes[index] = newRecipe;
     this.recipesChanged.next(this.recipes.slice());
   }
 
@@ -50,5 +53,4 @@ export class RecipeService {
     this.recipes.splice(index, 1);
     this.recipesChanged.next(this.recipes.slice());
   }
-
 }

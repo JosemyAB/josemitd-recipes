@@ -1,6 +1,6 @@
+import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-import {Router} from '@angular/router';
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AuthService {
@@ -8,29 +8,27 @@ export class AuthService {
 
   constructor(private router: Router) {}
 
-
-  singinUser(email: string, password: string) {
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((response) => {
-        this.router.navigate(['/'])
-        firebase.auth().currentUser.getIdToken()
-          .then((token: string) => {
-            this.token = token;
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  signupUser(email: string, password: string) {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .catch(
+        error => console.log(error)
+      )
   }
 
-  singupUser(email: string, password: string) {
-    firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(email, password)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  signinUser(email: string, password: string) {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(
+        response => {
+          this.router.navigate(['/']);
+          firebase.auth().currentUser.getToken()
+            .then(
+              (token: string) => this.token = token
+            )
+        }
+      )
+      .catch(
+        error => console.log(error)
+      );
   }
 
   logout() {
@@ -39,10 +37,10 @@ export class AuthService {
   }
 
   getToken() {
-    firebase.auth().currentUser.getIdToken()
-      .then((token: string) => {
-        this.token = token;
-      });
+    firebase.auth().currentUser.getToken()
+      .then(
+        (token: string) => this.token = token
+      );
     return this.token;
   }
 

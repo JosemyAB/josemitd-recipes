@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 
 @Component({
@@ -7,18 +7,16 @@ import * as firebase from 'firebase';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
   loadedFeature = 'recipe';
 
-  ngOnInit(): void {
-    firebase.initializeApp(
-      {apiKey: 'AIzaSyAyEOI-Xg3lKnSK7xUgVP3ewc7XBYsj9JY',
-      authdomain: 'ng-recipe-book-3df37.firebaseapp.com'}
-    );
+  ngOnInit() {
+    firebase.initializeApp({
+      apiKey: "AIzaSyBrkKleAX_8jHpPmTchVBmDD7Hkj8TT1VE",
+      authDomain: "ng-recipe-book-3adbb.firebaseapp.com"
+    });
   }
 
   onNavigate(feature: string) {
     this.loadedFeature = feature;
   }
-
 }
