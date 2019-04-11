@@ -36,7 +36,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     const formValue = form.value
     const newIngr = new Ingredient(formValue.name, formValue.amount);
     if (this.editMode) {
-      this.shoppingListService.updateIngredient(this.editItemIndex, newIngr);
+      this.store.dispatch(new ShoppingListActions.UpdateIngredient({index: this.editItemIndex, ingredient: newIngr}));
     } else {
       this.store.dispatch(new ShoppingListActions.AddIngredient(newIngr));
     }
@@ -54,7 +54,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   }
 
   onDelete() {
+    this.store.dispatch(new ShoppingListActions.DeleteIngredient(this.editItemIndex));
     this.onClear();
-    this.shoppingListService.deleteIngredient(this.editItemIndex);
   }
 }
