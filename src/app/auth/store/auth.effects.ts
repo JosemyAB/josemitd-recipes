@@ -4,6 +4,7 @@ import * as AuthActions from './auth.actions';
 import * as firebase from 'firebase';
 import {Router} from '@angular/router';
 import {map} from 'rxjs-compat/operator/map';
+import {_do } from 'rxjs-compat/operator/do';
 import {switchMap} from 'rxjs-compat/operator/switchMap';
 import {fromPromise} from 'rxjs-compat/observable/fromPromise';
 import {mergeMap} from 'rxjs-compat/operator/mergeMap';
