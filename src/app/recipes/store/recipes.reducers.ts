@@ -1,9 +1,10 @@
 import {Recipe} from '../recipe.model';
 import {Ingredient} from '../../shared/ingredient.model';
 import * as RecipesActions from './recipes.actions';
+import * as fromApp from '../../store/app.reducers';
 
 // Utilizado para lazy load
-export interface FeatureState {
+export interface FeatureState extends fromApp.AppState {
   recipes: State;
 }
 
