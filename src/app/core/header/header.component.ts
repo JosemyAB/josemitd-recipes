@@ -6,6 +6,7 @@ import {DataStorageService} from '../../shared/data-storage.service';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import * as AuthActions from '../../auth/store/auth.actions';
+import * as RecipesActions from '../../recipes/store/recipes.actions';
 
 @Component({
   selector: 'app-header',
@@ -24,16 +25,11 @@ export class HeaderComponent implements OnInit {
   }
 
   onSaveData() {
-    this.dataStorageService.storeRecipes()
-      .subscribe(
-        (response) => {
-          console.log(response);
-        }
-      );
+    this.store.dispatch(new RecipesActions.StoreRecipes());
   }
 
   onFetchData() {
-    this.dataStorageService.getRecipes();
+    this.store.dispatch(new RecipesActions.FetchRecipes());
   }
 
   onLogout() {
