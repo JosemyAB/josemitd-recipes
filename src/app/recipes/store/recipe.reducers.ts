@@ -1,11 +1,10 @@
-import {Recipe} from '../recipe.model';
-import {Ingredient} from '../../shared/ingredient.model';
-import * as RecipesActions from './recipes.actions';
+import { Recipe } from '../recipe.model';
+import { Ingredient } from '../../shared/ingredient.model';
+import * as RecipeActions from './recipe.actions';
 import * as fromApp from '../../store/app.reducers';
 
-// Utilizado para lazy load
 export interface FeatureState extends fromApp.AppState {
-  recipes: State;
+  recipes: State
 }
 
 export interface State {
@@ -29,44 +28,39 @@ const initialState: State = {
         new Ingredient('Buns', 2),
         new Ingredient('Meat', 1)
       ])
-  ]};
+  ]
+};
 
-export function recipesReducers(state = initialState, action: RecipesActions.RecipesActions) {
+export function recipeReducer(state = initialState, action: RecipeActions.RecipeActions) {
   switch (action.type) {
-    case RecipesActions.SET_RECIPES:
+    case (RecipeActions.SET_RECIPES):
       return {
         ...state,
         recipes: [...action.payload]
       };
-    case RecipesActions.ADD_RECIPES:
+    case (RecipeActions.ADD_RECIPE):
       return {
         ...state,
         recipes: [...state.recipes, action.payload]
       };
-    case RecipesActions.UPDATE_RECIPES:
-      // Coger el elemento
-      const recipeToUpdate = state.recipes[action.payload.index];
-      // Actualizarlo
+    case (RecipeActions.UPDATE_RECIPE):
+      const recipe = state.recipes[action.payload.index];
       const updatedRecipe = {
-        ...recipeToUpdate,
-        ...action.payload.recipe
+        ...recipe,
+        ...action.payload.updatedRecipe
       };
-      // Coger el listado
-      const currentRecipes = [...state.recipes];
-      // Actualizar el elemento
-      currentRecipes[action.payload.index] = updatedRecipe;
+      const recipes = [...state.recipes];
+      recipes[action.payload.index] = updatedRecipe;
       return {
         ...state,
-        recipes: currentRecipes
+        recipes: recipes
       };
-    case
-    RecipesActions.DELETE_RECIPES:
-      // Coger el ARray
-      const allRecipes = [...state.recipes];
-      allRecipes.splice(action.payload, 1);
+    case (RecipeActions.DELETE_RECIPE):
+      const oldRecipes = [...state.recipes];
+      oldRecipes.splice(action.payload, 1);
       return {
         ...state,
-        recipes: allRecipes
+        recipes: oldRecipes
       };
     default:
       return state;
